@@ -10,10 +10,6 @@ class GerarDefault(object):
                 'C:\\Users\\johann.albino\\Desktop\\repositório\\generate_default\\generate\\home\\classes\\programas.json') as file:
             self.programas_file = json.load(file)
 
-        with open(
-                'C:\\Users\\johann.albino\\Desktop\\repositório\\generate_default\\generate\\home\\classes\\names.json') as file:
-            self.name_file = json.load(file)
-
         self.data = []
         self.mes = 0
         self.ano = 0
@@ -52,15 +48,16 @@ class GerarDefault(object):
 
         self.get_directory(self.data[2], self.data[1])
 
-        if setor is 'Fiscal':
+        if setor == 'Fiscal':
             self._programas = self.programas_file['programas_fiscal']
-        elif setor is 'Contabil':
+        elif setor == 'Contabil':
             self._programas = self.programas_file['programas_contabeis']
-        elif setor is 'Materiais':
+        elif setor == 'Materiais':
             self._programas = self.programas_file['programas_materiais']
-        elif setor is 'Financeiro':
+        elif setor == 'Financeiro':
             self._programas = self.programas_file['programas_financeiros']
 
+        print(str(self.programas_file['programas_fiscal']))
         for i in self._programas, self.programas_file['programas_parametros'], self._diretorios:
             for x in i:
                 self.response.append('rar a ' + self.data[0] + ' ' + str(x))

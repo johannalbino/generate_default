@@ -14,6 +14,12 @@ from .classes import gerar_default_cl
 
 def index(request):
     template_name = 'index.html'
+
+    return render(request, template_name)
+
+
+def generate(request):
+    template_name = 'gerar.html'
     context = {}
 
     form = GerarForm(request.POST or None, request.FILES or None)

@@ -6,34 +6,36 @@
 
 {% block content %}
 
-<section class="content">
+    <div class="row title">
+        <div class="col-md-3">
+
+        </div>
+        <div class="col-md-6">
+            <h1><center>Gerar arquivo</center></h1>
+        </div>
+        <div class="col-md-3">
+
+        </div>
+    </div>
+
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-3">
 
         </div>
-        <div class="col-md-4">
-            <h1>Gerando Padrão</h1>
+        <div class="col-md-6 form-group border border-dark rounded">
+            <form method="POST" id="formGerar" name="formGerar">
+                {% csrf_token %}
+
+                <div class="col-md-12">
+                    {{ form|bootstrap }}
+                    <button type="submit" class="btn btn-success btn-sm">Gerar arquivo</button>
+
+                </div>
+
+            </form>
         </div>
-        <div class="col-md-4">
-
-        </div>
-    </div>
-
-    <div class="col-md-12 form-group">
-        <form method="POST" id="formGerar" name="formGerar">
-            {% csrf_token %}
-
-            <div class="col-md-12">
-                {{ form|bootstrap }}
-
-                <button type="submit" class="btn btn-success btn-sm">Gerar arquivo</button>
-
-            </div>
-
-        </form>
 
     </div>
-</section>
 {% endblock content %}
 
 {% block javascript%}
