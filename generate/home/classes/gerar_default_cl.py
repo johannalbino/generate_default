@@ -1,13 +1,13 @@
-import os
-from platform import python_version
 import json
-
+from django.conf import settings
 
 class GerarDefault(object):
 
     def __init__(self):
+        staticfiles = settings.STATIC_ROOT
+        print(settings.STATIC_URL)
         with open(
-                'C:\\Users\\johann.albino\\Desktop\\repositório\\generate_default\\generate\\home\\classes\\programas.json') as file:
+                'C:\\Users\\johann.albino\\Desktop\\repositorio\\generate_default\\generate\\home\\classes\\programas.json') as file:
             self.programas_file = json.load(file)
 
         self.data = []
@@ -49,16 +49,15 @@ class GerarDefault(object):
         self.get_directory(self.data[2], self.data[1])
 
         if setor == 'Fiscal':
-            self._programas = self.programas_file['programas_fiscal']
+            self._programas = self.programas_file.get('programas_fiscal', ['Not found program Fiscal!'])
         elif setor == 'Contabil':
-            self._programas = self.programas_file['programas_contabeis']
+            self._programas = self.programas_file.get('programas_contabeis', ['Not found program Contabil!'])
         elif setor == 'Materiais':
-            self._programas = self.programas_file['programas_materiais']
+            self._programas = self.programas_file.get('programas_materiais', ['Not found program Materiais!'])
         elif setor == 'Financeiro':
-            self._programas = self.programas_file['programas_financeiros']
+            self._programas = self.programas_file.get('programas_financeiros', ['Not found program Financeiro!'])
 
-        print(str(self.programas_file['programas_fiscal']))
-        for i in self._programas, self.programas_file['programas_parametros'], self._diretorios:
+        for i in self._programas, self.programas_file.get('programas_parametros', ['Not found program Paramatros!']), self._diretorios:
             for x in i:
                 self.response.append('rar a ' + self.data[0] + ' ' + str(x))
         self.response.append('mv ' + self.data[0] + '.rar /u/rede/avanco')

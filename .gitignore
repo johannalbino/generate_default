@@ -1,3 +1,6 @@
 .idea
 venv
-home/migrations/
+generate/home/migrations/*
+generate/home/__pycache__/*
+generate/generate/__pycache__/*
+generate/home/classes/__pycache__/*

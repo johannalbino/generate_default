@@ -5,7 +5,7 @@ from django.shortcuts import render, redirect
 from django.template import RequestContext
 
 from .forms import GerarForm
-from .models import OptionsGerar as modelOption
+from .models import OptionsGerar2 as modelOption
 from .classes import gerar_default_cl
 
 
@@ -36,9 +36,15 @@ def generate(request):
     return render(request, template_name, context)
 
 
+def setores(request):
+    template_name = 'setores.html'
+
+    return render(request, template_name)
+
+
 def generate_file(cliente, setor, mes, ano):
     padrao = gerar_default_cl.GerarDefault()
-    file_name = setor + 'padrao.sh'
+    file_name = setor.lower() + '_padrao.sh'
     context = padrao.gerando_file(cliente, setor, mes, ano)
     content = ''
 
