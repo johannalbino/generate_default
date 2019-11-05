@@ -22,22 +22,31 @@
         <div class="col-md-3">
 
         </div>
-        <div class="col-md-6 form-group border border-dark rounded">
+        <div class="col-md-6 form-group rounded">
             <form method="POST" id="formGerar" name="formGerar">
                 {% csrf_token %}
-
-                <div class="col-md-12">
-                    {{ form|bootstrap }}
-                    <button type="submit" class="btn btn-success btn-sm">Gerar arquivo</button>
-
+                <div id="client_name">
+                    {{ form.client_name|bootstrap }}
                 </div>
+                <div id="departament_name">
+                    {{ form.departament_name|bootstrap }}
+                </div>
+                <div id="mounth">
+                    {{ form.mounth|bootstrap }}
+                </div>
+                <div id="year">
+                    {{ form.year|bootstrap }}
+                </div>
+                <button type="submit" class="btn btn-success btn-sm">Gerar arquivo</button>
 
             </form>
         </div>
 
     </div>
+    
+    <script>
+        //document.getElementById('id_client_name').disabled = true;
+    </script>
 {% endblock content %}
 
-{% block javascript%}
 
-{% endblock %}

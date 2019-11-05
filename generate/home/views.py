@@ -1,11 +1,12 @@
 import datetime
 
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.template import RequestContext
 
-from .forms import GerarForm
-from .models import OptionsGerar2 as modelOption
+from .forms import GenerateForm
+from .models import OptionGenerate as modelOption
 from .classes import gerar_default_cl
 
 
@@ -22,14 +23,14 @@ def generate(request):
     template_name = 'gerar.html'
     context = {}
 
-    form = GerarForm(request.POST or None, request.FILES or None)
+    form = GenerateForm(request.POST or None, request.FILES or None)
     context['form'] = form
 
     if form.is_valid():
-        cliente = request.POST['clienteName']
-        setor = request.POST['setorName']
-        mes = request.POST['mes']
-        ano = request.POST['ano']
+        cliente = request.POST['client_name']
+        setor = request.POST['departament_name']
+        mes = request.POST['mounth']
+        ano = request.POST['year']
 
         return generate_file(cliente, setor, mes, ano)
 
@@ -43,9 +44,9 @@ def setores(request):
 
 
 def generate_file(cliente, setor, mes, ano):
-    padrao = gerar_default_cl.GerarDefault()
+    padrao = gerar_default_cl.GenerateDefault()
     file_name = setor.lower() + '_padrao.sh'
-    context = padrao.gerando_file(cliente, setor, mes, ano)
+    context = padrao.generate_file(cliente, setor, mes, ano)
     content = ''
 
     for i in context:

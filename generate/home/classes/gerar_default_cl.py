@@ -1,64 +1,63 @@
 import json
 from django.conf import settings
+import os
 
-class GerarDefault(object):
+
+class GenerateDefault(object):
 
     def __init__(self):
-        staticfiles = settings.STATIC_ROOT
-        print(settings.STATIC_URL)
-        with open(
-                'C:\\Users\\johann.albino\\Desktop\\repositorio\\generate_default\\generate\\home\\classes\\programas.json') as file:
-            self.programas_file = json.load(file)
+        with open(os.path.join(settings.BASE_DIR, 'home/classes/programas.json')) as file:
+            self.__programs_file = json.load(file)
+        self.__date = []
+        self.__mounth = 0
+        self.__year = 0
+        self.__directory = []
+        self.__programs = []
+        self.__response = []
 
-        self.data = []
-        self.mes = 0
-        self.ano = 0
-        self._diretorios = []
-        self._programas = []
-        self.response = []
-        # print ("Listas carregadas com sucesso!")
+    def get_information(self, client, year, mounth):
+        self.__mounth = mounth
+        self.__year = year
 
-    def get_information(self, cliente, ano, mes):
-        self.mes = mes
-        self.ano = ano
-        self.client = cliente
-
-        if len(self.client.split()) > 1:
-            self.client = self.valida_name(self.client.split())
+        if len(client.split(' ')) > 1:
+            client = GenerateDefault.validate_name(client.split(' '))
 
         # retornando uma lista
-        return ['base_' + self.client, self.mes, self.ano]
+        return ['base_' + client, self.__mounth, self.__year]
 
-    def get_directory(self, ano, mes):
-        for i in self.programas_file['diretorios']:
-            self._diretorios.append(i + f'{ano}{mes}* #')
-            self._diretorios.append(i + f'{mes}{ano}* #')
-        return self._diretorios
+    def get_directory(self, year, mounth):
+        for i in self.__programs_file['diretorios']:
+            self.__directory.append(i + f'{year}{mounth}* #')
+            self.__directory.append(i + f'{mounth}{year}* #')
+        return self.__directory
 
-    def valida_name(self, name_base):
+    @classmethod
+    def validate_name(cls, name_base):
         _name_base = ''
         for i in name_base:
             _name_base += i
         return _name_base
 
-    def gerando_file(self, cliente, setor, mes, ano):
-        self.data = self.get_information(cliente, mes, ano)
-        if int(self.data[1]) < 10:
-            self.data[1] = '0' + str(self.data[1])
+    def generate_file(self, client, departament, mounth, year):
+        """Função que gera o arquivo e retorna para a view"""
+        self.__date = self.get_information(client, mounth, year)
+        if int(self.__date[1]) < 10:
+            self.__date[1] = '0' + str(self.__date[1])
 
-        self.get_directory(self.data[2], self.data[1])
+        self.get_directory(self.__date[2], self.__date[1])
 
-        if setor == 'Fiscal':
-            self._programas = self.programas_file.get('programas_fiscal', ['Not found program Fiscal!'])
-        elif setor == 'Contabil':
-            self._programas = self.programas_file.get('programas_contabeis', ['Not found program Contabil!'])
-        elif setor == 'Materiais':
-            self._programas = self.programas_file.get('programas_materiais', ['Not found program Materiais!'])
-        elif setor == 'Financeiro':
-            self._programas = self.programas_file.get('programas_financeiros', ['Not found program Financeiro!'])
+        if departament == 'Fiscal':
+            self.__programs = self.__programs_file.get('programas_fiscal', {'msg': 'Not found program Fiscal!'})
+        elif departament == 'Contabil':
+            self.__programs = self.__programs_file.get('programas_contabeis', {'msg': 'Not found program Contabil!'})
+        elif departament == 'Materiais':
+            self.__programs = self.__programs_file.get('programas_materiais', {'msg': 'Not found program Materiais!'})
+        elif departament == 'Financeiro':
+            self.__programs = self.__programs_file.get('programas_financeiros', {'msg': 'Not found program Financeiro!'})
 
-        for i in self._programas, self.programas_file.get('programas_parametros', ['Not found program Paramatros!']), self._diretorios:
+        for i in self.__programs, self.__programs_file.get('programas_parametros',
+                                                           {'msg': 'Not found program Paramatros!'}), self.__directory:
             for x in i:
-                self.response.append('rar a ' + self.data[0] + ' ' + str(x))
-        self.response.append('mv ' + self.data[0] + '.rar /u/rede/avanco')
-        return self.response
+                self.__response.append('rar a ' + self.__date[0] + ' ' + str(x))
+        self.__response.append('mv ' + self.__date[0] + '.rar /u/rede/avanco')
+        return self.__response

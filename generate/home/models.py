@@ -1,12 +1,12 @@
 from django.db import models
-from django.utils.translation import ugettext, ugettext_lazy as _
 
 
 SETOR = (
-    ('Fiscal', 'Fiscal'),
-    ('Contabil', 'Contabil'),
-    ('Materiais', 'Materiais'),
-    ('Financeiro', 'Financeiro')
+    ('1', 'Fiscal'),
+    ('2', 'Contabil'),
+    ('3', 'Materiais'),
+    ('4', 'Financeiro'),
+    ('5', 'NFCE')
 )
 
 MES = (
@@ -34,23 +34,41 @@ ANO = (
 )
 
 
-class OptionsGerar(models.Model):
-    clienteName = models.CharField(_('Cliente'), max_length=100)
-    setorName = models.CharField(_('Setor'), max_length=30, choices=SETOR)
-    mes = models.CharField(_('Mes'), max_length=16, choices=MES)
-    ano = models.CharField(_('Ano'), max_length=2, choices=ANO)
+class Departament(models.Model):
+    departament_name = models.CharField(max_length=30)
+
+    class Meta:
+        managed = True
+        db_table = 'DEPARTAMENT'
 
     def __str__(self):
-        return self.setorName
+        return self.departament_name
 
 
-class OptionsGerar2(models.Model):
-    clienteName = models.CharField(_('Cliente'), max_length=100)
-    setorName = models.CharField(_('Setor'), max_length=30, choices=SETOR)
-    mes = models.CharField(_('Mes'), max_length=16, choices=MES)
-    ano = models.CharField(_('Ano'), max_length=2, choices=ANO)
+class OptionGenerate(models.Model):
+    client_name = models.CharField(max_length=100)
+    departament_name = models.ForeignKey(Departament, choices=SETOR, on_delete=models.PROTECT)
+    mounth = models.CharField(max_length=16, choices=MES)
+    year = models.CharField(max_length=2, choices=ANO)
+    date_create = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        managed = True
+        db_table = 'LOG_GENERATE'
 
     def __str__(self):
-        return self.setorName
+        return self.client_name
 
 
+class Directory(models.Model):
+    departament_name = models.ForeignKey(Departament, choices=SETOR, on_delete=models.PROTECT)
+    name_program = models.CharField(max_length=50)
+    description_program = models.TextField(blank=True, null=True)
+    directory_program = models.TextField()
+
+    class Meta:
+        managed = True
+        db_table = 'DIRECTORY_PROGRAM'
+
+    def __str__(self):
+        return self.name_program

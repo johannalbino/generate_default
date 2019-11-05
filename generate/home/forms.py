@@ -1,8 +1,8 @@
 from django import forms
-from .models import OptionsGerar
+from .models import OptionGenerate
 
 
-class GerarForm(forms.ModelForm):
+class GenerateForm(forms.ModelForm):
     class Meta:
-        model = OptionsGerar
-        fields = ['clienteName', 'setorName', 'mes', 'ano']
+        model = OptionGenerate
+        fields = ['client_name', 'departament_name', 'mounth', 'year']
