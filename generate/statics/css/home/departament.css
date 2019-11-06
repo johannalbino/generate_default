@@ -1,0 +1,18 @@
+#tableDepartament {
+    border: 2px solid #c0c0c0cc;
+    width: 100%;
+    text-align: center;
+    margin: 100px 0;
+}
+
+#tableDepartament thead{
+    background-color: #c0c0c0;
+}
+
+#tableDepartament tbody tr td{
+    font-weight: 300;
+}
+
+.title {
+    text-align: center;
+}

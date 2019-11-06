@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load bootstrap %}
+{% load static %}
+
+{% block title %} Gerando Padrão {% endblock title %}
+
+{% block content %}
+
+<div class="title">
+    <h1><center>Adicionar um programa</center></h1>
+</div>
+
+<div class="row">
+    <div class="col-md-3">
+
+    </div>
+    <div class="col-md-6 form-group rounded">
+        <form method="POST" id="formProgram">
+            {% csrf_token %}
+            <div id="departament_name">
+                Setor/Departamento*
+                {{ form.departament_name|bootstrap }}
+            </div>
+            <div id="name_program">
+                Nome do Programa*
+                {{ form.name_program|bootstrap }}
+            </div>
+            <div id="description_program">
+                Descrição do programa
+                {{ form.description_program|bootstrap }}
+            </div>            
+            <div id="directory_program">
+                Caminho completo do programa* (Ex: sist/arq/sp01*01* #Parametro de filial)
+                {{ form.directory_program|bootstrap }}
+            </div>
+            <a href="{% url 'my_program' id_departament %}"><div class="btn btn-warning btn-sm">Voltar</div></a>
+            <button type="submit" class="btn btn-success btn-sm">Salvar</button>
+        </form>
+        
+    </div>
+    <div class="col-md-3">
+
+    </div>
+</div>
+
+{% endblock content %}

@@ -2,20 +2,14 @@
 {% load bootstrap %}
 {% load static %}
 
+
 {% block title %} Gerando Padrão {% endblock title %}
+
 
 {% block content %}
 
-    <div class="row title">
-        <div class="col-md-3">
-
-        </div>
-        <div class="col-md-6">
-            <h1><center>Gerar arquivo</center></h1>
-        </div>
-        <div class="col-md-3">
-
-        </div>
+    <div class="title">
+        <h1><center>Gerar arquivo SH</center></h1>
     </div>
 
     <div class="row">
@@ -26,15 +20,19 @@
             <form method="POST" id="formGerar" name="formGerar">
                 {% csrf_token %}
                 <div id="client_name">
+                    Cliente
                     {{ form.client_name|bootstrap }}
                 </div>
                 <div id="departament_name">
+                    Departamento/Setor
                     {{ form.departament_name|bootstrap }}
                 </div>
                 <div id="mounth">
+                    Mês
                     {{ form.mounth|bootstrap }}
                 </div>
                 <div id="year">
+                    Ano
                     {{ form.year|bootstrap }}
                 </div>
                 <button type="submit" class="btn btn-success btn-sm">Gerar arquivo</button>
@@ -45,7 +43,39 @@
     </div>
     
     <script>
-        //document.getElementById('id_client_name').disabled = true;
+        document.getElementById('id_client_name').onkeypress = function (e){
+            var chr = String.fromCharCode(e.which);
+            if("1234567890qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM".indexOf(chr) < 0){
+                return false;
+            }
+        }
+        document.getElementById('id_departament_name').disabled = true;
+        document.getElementById('id_mounth').disabled = true;
+        document.getElementById('id_year').disabled = true;
+        
+        function verifyClient(){
+            var client_name = document.getElementById('id_client_name').value;
+            if (client_name !== null && client_name !== ""){
+                document.getElementById('id_departament_name').disabled = false;
+            } else {
+                document.getElementById('id_departament_name').disabled = true;
+            }
+        }
+
+        function verifyDepartament(){
+            var departament_name = document.getElementById('id_departament_name');
+            var selectDepartament = parseInt(departament_name.options[departament_name.selectedIndex].value);
+            if (selectDepartament > 0 && typeof selectDepartament === "number"){
+                document.getElementById('id_mounth').disabled = false;
+                document.getElementById('id_year').disabled = false;
+            } else {
+                document.getElementById('id_mounth').disabled = true;
+                document.getElementById('id_year').disabled = true;
+            }
+        }
+
+        document.getElementById('id_client_name').oninput = function() {verifyClient()};
+        document.getElementById('id_departament_name').onchange = function() {verifyDepartament()};
     </script>
 {% endblock content %}
 

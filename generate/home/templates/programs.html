@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load bootstrap %}
+{% load static %}
+
+{% block title %} Gerando Padrão {% endblock title %}
+
+{% block content %}
+
+<div class="title">
+    <h1><center>Programas</center></h1>
+</div>
+
+<div class="row">
+    <div class="col-md-3">
+
+    </div>
+    <div class="col-md-6">
+        <form method="POST" id="formPrograms">
+            {% csrf_token %}
+            <div id="departamentOption">
+                Selecione o setor/departamento
+                {{ form.departament_name|bootstrap }}     
+            </div>
+            <button type="submit" class="btn btn-success btn-sm btn-confirm">Confirmar</button>
+        </form>
+    </div>
+    <div class="col-md-3">
+
+    </div>
+</div>
+
+{% endblock content %}

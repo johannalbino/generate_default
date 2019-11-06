@@ -1,7 +1,7 @@
 from django.db import models
 
 
-SETOR = (
+DEPARTAMENT = (
     ('1', 'Fiscal'),
     ('2', 'Contabil'),
     ('3', 'Materiais'),
@@ -47,7 +47,7 @@ class Departament(models.Model):
 
 class OptionGenerate(models.Model):
     client_name = models.CharField(max_length=100)
-    departament_name = models.ForeignKey(Departament, choices=SETOR, on_delete=models.PROTECT)
+    departament_name = models.ForeignKey(Departament, choices=DEPARTAMENT, on_delete=models.PROTECT)
     mounth = models.CharField(max_length=16, choices=MES)
     year = models.CharField(max_length=2, choices=ANO)
     date_create = models.DateTimeField(auto_now_add=True)
@@ -61,7 +61,7 @@ class OptionGenerate(models.Model):
 
 
 class Directory(models.Model):
-    departament_name = models.ForeignKey(Departament, choices=SETOR, on_delete=models.PROTECT)
+    departament_name = models.ForeignKey(Departament, on_delete=models.PROTECT)
     name_program = models.CharField(max_length=50)
     description_program = models.TextField(blank=True, null=True)
     directory_program = models.TextField()
@@ -71,4 +71,4 @@ class Directory(models.Model):
         db_table = 'DIRECTORY_PROGRAM'
 
     def __str__(self):
-        return self.name_program
+        return self.directory_program

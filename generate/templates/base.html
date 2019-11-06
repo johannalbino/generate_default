@@ -14,8 +14,9 @@
 <div class="content col-md-12">
     <div class="sidenav">
       <a href="{% url 'index' %}">Página Inicial</a>
-      <a href="{% url 'gerar' %}">Gerar arquivo</a>
-      <a href="">Setor/Programas</a>
+      <a href="{% url 'generate' %}">Gerar arquivo</a>
+      <a href="{% url 'departament' %}">Setor</a>
+      <a href="{% url 'programs' %}">Programas</a>
     </div>
     <div class="main">
         {% block content%}
