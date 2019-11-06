@@ -21,11 +21,13 @@ As bibliotecas utilizadas no desenvolvimento do projeto está no arquivo require
 	pip install -r requirements.txt
 
 Para criar o banco de dados deve executar:
+
 	python manage.py makemigrations home
 	python manage.py migrate
 	python manage.py createsuperuser    #Para acessar a parte admin do django
 
 Executar o programa localmente:
+
 	python manage.py runserver localhost:8000  # A porta default é 8000, mas se quiser pode alterar para a desejada.
 
 Só brincar no navegador e experimentar o programa.
