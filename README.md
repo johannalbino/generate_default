@@ -20,6 +20,10 @@ As bibliotecas utilizadas no desenvolvimento do projeto está no arquivo require
 
 	pip install -r requirements.txt
 
+Deve configurar o banco de dados de acordo com os seus dados no arquivo settings.py.
+
+**OBS: O banco de dados utilizado neste projeto é o postgrees.**
+
 Para criar o banco de dados deve executar:
 
 	python manage.py makemigrations home
