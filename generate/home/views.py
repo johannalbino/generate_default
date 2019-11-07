@@ -99,10 +99,10 @@ def programs(request):
 
 
 def del_program(request, id):
-    id_departament = Directory.objects.filter(pk=id)
+    departament_id = list(Directory.objects.all().filter(id=id))
     program = get_object_or_404(Directory, pk=id)
     program.delete()
-    return redirect('my_program', id_departament)
+    return redirect('my_program', departament_id[0].departament_name_id)
 
 
 def new_program(request, id_departament):
