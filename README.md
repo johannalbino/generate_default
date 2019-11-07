@@ -3,7 +3,8 @@
 ### Problema identificado:
 
 Para buscar dados no servidor linux eu precisava executar vários comandos do tipo:
-rar a caminho/caminho/programa* # comentario
+
+	rar a caminho/caminho/programa* # comentario
 
 Gerando assim um arquivo rar com todas os arquivos indexados do cobol para assim realizar os testes internos.
 
